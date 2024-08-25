@@ -2,26 +2,24 @@ const productService = require("../services/productService.js");
 const NotFoundError = require("../errors/NotFoundError");
 const {jsonResponse , errorResponse  } = require("../helper/response.js");
 
-const {upload   } = require("../helper/uploadImages.js");
+
 
 
 
 async function create(req, res) {
   try {
-      const imageName =  upload(res , req.files.image  )
-      
-      product = await productService.createProduct(req.body , imageName );
+      const product = await productService.createProduct(req  );
       if (!product) {
         throw new NotFoundError('not found ');
       }
       return jsonResponse(res  , product , 201) 
   } catch (error) {
-    return errorResponse(res  , error) 
-  }
+   return errorResponse(res  , error) 
+ }
 }
 async function get(req, res) {
   try {
-    products = await productService.getProduct(req.params.id );
+    const products = await productService.getProduct(req.params.id );
     return jsonResponse(res  , products ) 
   } catch (error) {
     return errorResponse(res  , error) 
@@ -31,7 +29,7 @@ async function list(req, res) {
 
 
   try {
-    products = await productService.getProducts( {...req.query} );
+    const products = await productService.getProducts( {...req.query} );
     if (!products) {
       throw new NotFoundError('Product not found');
     }
@@ -50,7 +48,7 @@ async function remove(req, res) {
 }
 async function update(req, res) {
   try {
-    product = await productService.updateProduct(req.body , req.params.id );
+    const product = await productService.updateProduct(req.body , req.params.id );
     if (!product) {
       throw new NotFoundError('Product not found');
     }

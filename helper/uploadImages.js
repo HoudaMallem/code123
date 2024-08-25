@@ -1,12 +1,12 @@
 
 const BadRequestError = require("../errors/BadRequestError.js");
-const {  errorResponse  } = require("../helper/response.js");
+//const {  errorResponse  } = require("../helper/response.js");
 module.exports = {
-    upload(res , image ){
+    upload( image ){
         if (!image) 
-            return    errorResponse(res  , new BadRequestError([] ,  "no image submitted  "  ) ) 
+            throw new BadRequestError([] ,  "no image submitted  "  ) 
         if (!/^image/.test(image.mimetype)) {
-            return    errorResponse(res  , new BadRequestError([] ,  "the file should be a valid image !!!" ) ) 
+            throw new BadRequestError([] ,  "the file should be a valid image !!!" ) 
         }
         
       

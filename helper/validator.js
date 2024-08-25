@@ -26,6 +26,7 @@ module.exports = {
     description : Joi.string(),
     category : Joi.string().required(),
     price  : Joi.string().required(),
+    image  : Joi.any() 
   }),
 
    objectIdSchema : Joi.object({

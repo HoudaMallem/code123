@@ -2,7 +2,7 @@
 const BadRequestError = require("../errors/BadRequestError.js");
 const NotFoundError = require("../errors/NotFoundError.js");
 const models = require("../schema/models.js");
-
+const {upload   } = require("../helper/uploadImages.js");
 
 async function getProducts(query) {
   try{
@@ -32,7 +32,13 @@ async function getProducts(query) {
 
   }
 
-async function createProduct(query , imageName) {
+async function createProduct( req) {
+  
+  const query =req.body
+  const files= req.files
+  var imageName = ""
+  if (files !== undefined && files !== null &&  files.image !== undefined)
+      imageName =  upload( files.image  )
   const product = new models.Product({
       name: query.name ,
       description: query.description,
@@ -47,6 +53,7 @@ async function createProduct(query , imageName) {
     throw new BadRequestError([] , "product not found");
   }
   return product;
+
 }
 
 async function removeProduct(id) {

@@ -12,11 +12,11 @@ const openapi = require('./doc/openapi.json');
 const router = express.Router();
 
 router.get('/api/v1/products/', authenticationJWT  ,authorization( ['owner', 'guest']) , productController.list );
-router.post('/api/v1/products/',authenticationJWT  ,authorization(['owner','guest'] ) , validate(productBodySchema , "body" ) , productController.create);
+router.post('/api/v1/products/',authenticationJWT  ,authorization(['owner'] ) , validate(productBodySchema , "body" ) , productController.create);
 
 router.get('/api/v1/products/:id/',authenticationJWT  ,authorization(['owner' ,'guest' ]  ) , validate(objectIdSchema , "params" )  , productController.get );
-router.delete('/api/v1/products/:id/', authenticationJWT  ,authorization(['owner' , 'guest'] ) , validate(objectIdSchema , "params" ) , productController.remove );
-router.put('/api/v1/products/:id/', authenticationJWT  ,authorization(['owner' , 'guest'] ) , validate(objectIdSchema , "params" ), validate(productBodySchema , "body" )  , productController.update );
+router.delete('/api/v1/products/:id/', authenticationJWT  ,authorization(['owner'] ) , validate(objectIdSchema , "params" ) , productController.remove );
+router.put('/api/v1/products/:id/', authenticationJWT  ,authorization(['owner'] ) , validate(objectIdSchema , "params" ), validate(productBodySchema , "body" )  , productController.update );
 
 router.post('/api/v1/login/', validate(userLoginSchema , "body" ) , userController.login);
 router.post('/api/v1/register/', validateAsync(userRegisterSchema , "body" ), userController.register); 

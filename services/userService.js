@@ -33,7 +33,7 @@ const CONFIG = require('../setting.js');
    
 
       if (bcrypt.compareSync(password, user.password)) {
-        const token = jwt.sign({ email, role: 'guest' }, CONFIG.SECRET_KEY, { expiresIn: '2h' });
+        const token = jwt.sign({ email, role: user.role }, CONFIG.SECRET_KEY, { expiresIn: '2h' });
         return token;
       } else {
         throw new UnauthorizedError("Authentication failed")
