@@ -1,0 +1,464 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "code123 code challenge",
+    "description": "This is the openapi doc for code123 code challenge Rest api",
+    "contact": {
+      "email": "houda.mallem@gmail.com"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/api/v1"
+    }
+  ],
+  "paths": {
+    "/products/": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "description": "Get list of products and filtering and sorting",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "search by a name ",
+            "required": false,
+            "schema": {
+              "example": "product1",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Sort products list by a field "
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated"
+          },
+          "403": {
+            "description": "Access forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Create a product",
+        "description": "Create a product",
+        "requestBody": {
+          "description": "Create a product",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Product has been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "401": {
+            "description": "Not authenticated"
+          },
+          "403": {
+            "description": "Access forbidden"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/products/{id}/": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "description": "get one product by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "401": {
+            "description": "Not authenticated"
+          },
+          "403": {
+            "description": "Access forbidden"
+          },
+          "404": {
+            "description": "not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of a product",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "401": {
+            "description": "Not authenticated"
+          },
+          "403": {
+            "description": "Access forbidden"
+          },
+          "404": {
+            "description": "not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Update an existing product",
+        "description": "Update an existing product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of product",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing product",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "401": {
+            "description": "Not authenticated"
+          },
+          "403": {
+            "description": "Access forbidden"
+          },
+          "404": {
+            "description": "not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/login/": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "login",
+        "requestBody": {
+          "description": "login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register/": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create a user",
+        "description": "Create a new user",
+        "requestBody": {
+          "description": "Create a new user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "user has been created"
+          },
+          "400": {
+            "description": "bad request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "product1",
+            "description": "product name"
+          },
+          "description": {
+            "type": "string",
+            "example": "description of product1",
+            "description": "product description"
+          },
+          "price": {
+            "type": "string",
+            "example": 22,
+            "description": "product price"
+          },
+          "category": {
+            "type": "string",
+            "example": "tech",
+            "description": "product category"
+          },
+          "image": {
+            "type": "string",
+            "example": "/product1.jpg",
+            "description": "product image"
+          }
+        }
+      },
+      "ProductRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "product1",
+            "description": "product name"
+          },
+          "description": {
+            "type": "string",
+            "example": "description of product1",
+            "description": "product description"
+          },
+          "price": {
+            "type": "string",
+            "example": 22,
+            "description": "product price"
+          },
+          "category": {
+            "type": "string",
+            "example": "tech",
+            "description": "product category"
+          },
+          "image": {
+            "type": "string",
+            "example": "/product1.jpg",
+            "description": "product image"
+          }
+        }
+      },
+      "ProductsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "ProductResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "items": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFoundError": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "NotFoundError"
+          },
+          "message": {
+            "type": "string",
+            "example": "the id product not found"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

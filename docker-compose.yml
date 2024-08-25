@@ -1,0 +1,31 @@
+version: '3.2'
+
+services:
+  mongodb-test:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+  code123:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command:  node app.js
+    container_name: code123-api
+    restart: always
+    volumes:
+      - .:/src
+      - ./node_modules:/src/node_modules
+    environment:
+      DB_URI: 'mongodb://mongodb-test:27019/code123?authSource=admin'
+      DB_HOST: 'mongodb-test'
+      DB_POST: '27017'
+      DB_DATABASE: 'code123'
+      DB_USERNAME: 'admin'
+      DB_PASSWORD: 'admin'
+      NODE_ENV : "dev"
+    ports:
+      - 4000:4000
+
