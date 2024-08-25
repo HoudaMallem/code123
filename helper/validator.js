@@ -13,7 +13,6 @@ function isObjectIdValid(value, helpers) {
 }
 
 async function isUniqueEmail(value, helpers) {
-  console.log("isUniqueEmail")
   const user = await models.User.findOne({ email: value })
   if (user){
     return helpers.error('email already exists');

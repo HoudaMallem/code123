@@ -3,7 +3,6 @@ const NotFoundError = require("../errors/NotFoundError.js");
 const {jsonResponse , errorResponse  } = require("../helper/response.js");
 
 async function register(req, res) {
-  console.log('CREATE user ' , req.body )
   try {
     const { email, password } = req.body;
     user = await userService.createUser(email, password );

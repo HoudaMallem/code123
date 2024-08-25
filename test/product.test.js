@@ -8,7 +8,6 @@ test("get Product by id success", async () => {
         "api/v1/products/66c89d62c9500c2304bf55e2/"
       )
       .set('Authorization', token) 
-      console.log("lllllll",response.status)
     expect(response.status).toBe(200);
   });
 
