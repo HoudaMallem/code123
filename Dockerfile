@@ -5,9 +5,11 @@ RUN echo "deb http://deb.debian.org/debian buster main" > /etc/apt/sources.list
 RUN apt-get clean
 RUN apt-get update
 RUN apt-get -y install sudo
-RUN apt-get install -y build-essential python
 
-RUN npm install 
+
+#RUN npm install 
+RUN npm i bcrypt
+RUN npm ci
 EXPOSE 4000
 
 
