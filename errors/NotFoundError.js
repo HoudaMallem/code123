@@ -1,7 +1,7 @@
 const CustomError = require("./CustomError");
 
 class NotFoundError extends CustomError {
-  constructor(message = 'Not found') {
+  constructor(message = "Not found") {
     super(message, 404);
     this.name = "NotFoundError";
     this.statusCode = 404;
@@ -10,11 +10,10 @@ class NotFoundError extends CustomError {
   }
 
   serializeErrors() {
-
     return {
       type: this.name,
-      message: this.message
-    }
+      message: this.message,
+    };
   }
 }
 

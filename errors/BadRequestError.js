@@ -1,12 +1,11 @@
 const CustomError = require("./CustomError");
 
 class BadRequestError extends CustomError {
-  constructor(errors = [], message = 'Validation Error') {
-    super('Validation Error', 400);
+  constructor(errors = [], message = "Validation Error") {
+    super("Validation Error", 400);
 
     this.name = "ValidationError";
-    this.message = message,
-    this.errors = errors ? errors : [];
+    (this.message = message), (this.errors = errors ? errors : []);
     this.statusCode = 400;
     Object.setPrototypeOf(this, BadRequestError.prototype);
   }
@@ -18,8 +17,8 @@ class BadRequestError extends CustomError {
       errors: this.errors.map((error) => ({
         field: error.context ? error.context.label : "",
         message: error.message ? error.message : "",
-      }))
-    }
+      })),
+    };
   }
 }
 

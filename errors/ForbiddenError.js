@@ -1,7 +1,7 @@
 const CustomError = require("./CustomError");
 
 class ForbiddenError extends CustomError {
-  constructor(message = 'insufficient permissions') {
+  constructor(message = "insufficient permissions") {
     super(message, 403);
     this.name = "Forbidden";
     this.statusCode = 403;
@@ -12,8 +12,8 @@ class ForbiddenError extends CustomError {
   serializeErrors() {
     return {
       type: this.name,
-      message: this.message
-    }
+      message: this.message,
+    };
   }
 }
 

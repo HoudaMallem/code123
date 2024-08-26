@@ -1,7 +1,7 @@
 const CustomError = require("./CustomError");
 
 class UnauthorizedError extends CustomError {
-  constructor(message = 'lacks valid authentication credentials') {
+  constructor(message = "lacks valid authentication credentials") {
     super(message, 401);
     this.name = "Unauthorized";
     this.statusCode = 401;
@@ -12,8 +12,8 @@ class UnauthorizedError extends CustomError {
   serializeErrors() {
     return {
       type: this.name,
-      message: this.message
-    }
+      message: this.message,
+    };
   }
 }
 
