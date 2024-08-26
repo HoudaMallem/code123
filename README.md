@@ -1,5 +1,5 @@
 # to run 
 npm install
 npm start
-# to run zith docker 
+# to run with docker 
 docker-compose up --build
